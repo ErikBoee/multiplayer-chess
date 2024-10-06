@@ -13,7 +13,9 @@
     "chess.js": "^1.0.0-beta.8",
     "react": "^18.3.1",
     "react-chessboard": "^4.7.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "react-use-websocket": "^4.9.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
