@@ -1,0 +1,33 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Suggestion {
+    id            String @id @default(cuid())
+    move          Move   @relation(fields: [moveId], references: [id])
+    moveId        String
+    suggestedMove String
+    numberOfVotes Int
+}
+
+model Move {
+    id              String       @id @default(cuid())
+    index           Int
+    moveDescription String
+    game            Game         @relation(fields: [gameId], references: [id])
+    gameId          String
+    suggestions     Suggestion[]
+}
+
+model Game {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    fen       String
+    moves     Move[]
+}
