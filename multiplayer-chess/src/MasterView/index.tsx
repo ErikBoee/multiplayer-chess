@@ -3,7 +3,7 @@ import ChessboardWithRules from "../ChessBoardWithRules";
 import { getGame, getSuggestions, startNewGame } from "../services";
 import useWebSocket from "react-use-websocket";
 
-const socketUrl = "ws://localhost:3000/";
+const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
 function MasterView() {
   const [initialFen, setInitialFen] = useState<string | null>(null);

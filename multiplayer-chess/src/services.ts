@@ -1,4 +1,5 @@
-const url = import.meta.env.VITE_API_URL;
+const url = `${import.meta.env.VITE_API_URL}`;
+console.log(url);
 
 async function makeSuggestion(move: string): Promise<void> {
   return fetch(`${url}add-suggestion/`, {
