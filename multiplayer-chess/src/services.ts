@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/";
+const url = import.meta.env.VITE_API_URL;
 
 async function makeSuggestion(move: string): Promise<void> {
   return fetch(`${url}add-suggestion/`, {
