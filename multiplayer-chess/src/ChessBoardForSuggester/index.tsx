@@ -49,7 +49,6 @@ function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
       </div>
     );
   }
-  const dbPassword = "maudi123"
 
   return (
     <div style={{ width: "30vw", height: "30vh", marginTop: "100px" }}>

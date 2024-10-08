@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { makeMove } from "../services";
 import { clone } from "../utilities/clone";
-import { on } from "events";
 
 type Move = string | { from: string; to: string; promotion?: string };
 
