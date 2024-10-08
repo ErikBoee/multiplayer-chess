@@ -5,6 +5,7 @@ import SuggesterView from "./SuggesterView";
 function App() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
+      <text>Velkommen til sjakkspillet!</text>
       <Router>
         <Routes>
           <Route path="/suggester" element={<SuggesterView />} />
