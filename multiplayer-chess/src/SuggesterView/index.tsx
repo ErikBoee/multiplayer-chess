@@ -3,7 +3,7 @@ import useWebSocket from "react-use-websocket";
 import ChessboardForSuggester from "../ChessBoardForSuggester";
 import { getGame } from "../services";
 
-const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/"
+const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
 function SuggesterView() {
   const [initialFen, setInitialFen] = useState<string | null>(null);

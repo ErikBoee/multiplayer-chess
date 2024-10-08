@@ -3,6 +3,7 @@ import { Chess } from "chess.js";
 import { useEffect, useState } from "react";
 import { clone } from "../utilities/clone";
 import { makeSuggestion } from "../services";
+import { getIsMobile } from "../utilities/isMobile";
 
 type Move = string | { from: string; to: string; promotion?: string };
 
@@ -42,6 +43,8 @@ function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
     setGame(new Chess(initialFen));
     setHasMadeSuggestion(false);
   }, [initialFen]);
+
+  const isMobile = getIsMobile(window.navigator.userAgent);
   if (hasMadeSuggestion) {
     return (
       <div style={{ width: "30vw", height: "30vh", marginTop: "100px" }}>
@@ -50,8 +53,12 @@ function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
     );
   }
 
+  const style = isMobile
+    ? { width: "95vw", height: "95vh", marginTop: "100px" }
+    : { width: "30vw", height: "30vh", marginTop: "100px" };
+
   return (
-    <div style={{ width: "30vw", height: "30vh", marginTop: "100px" }}>
+    <div style={style}>
       <Chessboard
         id="BasicBoard"
         position={suggestedFen ?? initialFen}
