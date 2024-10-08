@@ -1,0 +1,75 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "--no-cache"
+      - "-t"
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - services/jle-api
+      - "-f"
+      - services/jle-api/Dockerfile
+    id: Build
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - >-
+        $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+    id: Push
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    args:
+      - run
+      - services
+      - update
+      - $_SERVICE_NAME
+      - "--platform=managed"
+      - >-
+        --image=$_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+      - >-
+        --labels=managed-by=gcp-cloud-build-deploy-cloud-run,commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID,gcb-trigger-id=$_TRIGGER_ID
+      - "--region=$_DEPLOY_REGION"
+      - "--quiet"
+    id: Deploy
+    entrypoint: gcloud
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "-c"
+      - >
+        echo "FROM
+        ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}
+
+        COPY --from=gcr.io/cloud-sql-connectors/cloud-sql-proxy /cloud-sql-proxy
+        /cloudsql/cloud-sql-proxy" > Dockerfile-proxy;
+          docker build -f Dockerfile-proxy -t ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}-proxy .
+    id: docker-layer
+    entrypoint: /bin/bash
+  - name: >-
+      ${_AR_HOSTNAME}/${PROJECT_ID}/cloud-run-source-deploy/${REPO_NAME}/${_SERVICE_NAME}:${COMMIT_SHA}-proxy
+    env:
+      - "POSTGRES_URL=${_POSTGRES_URL}"
+      - "INSTANCE_CONNECTION_NAME=${_INSTANCE_CONNECTION_NAME}"
+    args:
+      - "-c"
+      - >
+        /cloudsql/cloud-sql-proxy --unix-socket /cloudsql
+        ${_INSTANCE_CONNECTION_NAME} & sleep 2;
+
+        npx prisma migrate deploy
+    dir: services/jle-api
+    id: migrate-tcp
+    entrypoint: /bin/bash
+images:
+  - >-
+    $_AR_HOSTNAME/$PROJECT_ID/cloud-run-source-deploy/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+options:
+  substitutionOption: ALLOW_LOOSE
+substitutions:
+  _AR_HOSTNAME: europe-north1-docker.pkg.dev
+  _PLATFORM: managed
+  _SERVICE_NAME: realfagsportalen-api
+  _DEPLOY_REGION: europe-north1
+  _TRIGGER_ID: d138a38d-ed19-44cd-b34a-6dbd952f291e
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - realfagsportalen-api
