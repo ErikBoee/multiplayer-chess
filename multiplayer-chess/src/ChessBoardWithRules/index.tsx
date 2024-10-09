@@ -1,10 +1,11 @@
-import { Chess } from "chess.js";
+import { Chess, Move } from "chess.js";
 import { useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { makeMove } from "../services";
 import { clone } from "../utilities/clone";
+import { Stack, Typography } from "@mui/material";
 
-type Move = string | { from: string; to: string; promotion?: string };
+type InputMove = string | { from: string; to: string; promotion?: string };
 
 type ChessboardWithRulesProps = {
   initialFen: string;
@@ -14,7 +15,7 @@ type ChessboardWithRulesProps = {
 function ChessboardWithRules({ initialFen, onMove }: ChessboardWithRulesProps) {
   const [game, setGame] = useState(new Chess(initialFen));
 
-  function makeAMove(move: Move) {
+  function makeAMove(move: InputMove) {
     const gameCopy = clone(game);
     const result = gameCopy.move(move);
     if (result === null) return null;
@@ -23,12 +24,16 @@ function ChessboardWithRules({ initialFen, onMove }: ChessboardWithRulesProps) {
   }
 
   function onDrop(sourceSquare: string, targetSquare: string) {
-    const move = makeAMove({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: "q",
-    });
-
+    let move: { result: Move; newFen: string } | null = null;
+    try {
+      move = makeAMove({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: "q",
+      });
+    } catch (e) {
+      return false;
+    }
     // illegal move
     if (move === null) return false;
     makeMove(move.result.san, move.newFen);
@@ -37,9 +42,21 @@ function ChessboardWithRules({ initialFen, onMove }: ChessboardWithRulesProps) {
   }
 
   return (
-    <div style={{ width: "30vw", height: "30vh", marginTop: "100px" }}>
+    <Stack
+      direction="column"
+      sx={{
+        width: "30%",
+        minWidth: 400,
+        marginLeft: "5%",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 1,
+      }}
+    >
+      <Typography variant="h5">{"GM Jon Ludvig Hammer"}</Typography>
       <Chessboard id="BasicBoard" position={game.fen()} onPieceDrop={onDrop} />
-    </div>
+      <Typography variant="h5">{"Sustainable Procurement Summit"}</Typography>
+    </Stack>
   );
 }
 

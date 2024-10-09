@@ -1,18 +1,28 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import MasterView from "./MasterView";
 import SuggesterView from "./SuggesterView";
+import { Stack } from "@mui/material";
+import AdminView from "./AdminView";
 
 function App() {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <text>Velkommen til sjakkspillet!</text>
+    <Stack
+      direction={"column"}
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Router>
         <Routes>
           <Route path="/suggester" element={<SuggesterView />} />
           <Route path="/master" element={<MasterView />} />
+          <Route path="/admin" element={<AdminView />} />
         </Routes>
       </Router>
-    </div>
+    </Stack>
   );
 }
 

@@ -1,7 +1,9 @@
+import { Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import ChessboardWithRules from "../ChessBoardWithRules";
-import { getGame, getSuggestions, startNewGame } from "../services";
 import useWebSocket from "react-use-websocket";
+import ChessboardWithRules from "../ChessBoardWithRules";
+import { getGame, getSuggestions } from "../services";
+import Suggestion from "./Suggestion";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
@@ -21,36 +23,74 @@ function MasterView() {
       });
   }, []);
 
-  const onNewGame = () => {
-    startNewGame();
-    getGame().then((game) => {
-      setInitialFen(game.fen);
-    });
-  };
-
   const onGetSuggestions = () => {
     getSuggestions().then((response) => {
       setSuggestions(response.suggestions);
     });
   };
 
-  console.log("initialFen", initialFen);
+  useEffect(() => {
+    onGetSuggestions();
 
+    const interval = setInterval(() => {
+      onGetSuggestions();
+      console.log("polling suggestions");
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const sortedSuggestions = Object.entries(suggestions)
+    .sort(([, votesA], [, votesB]) => votesB - votesA)
+    .slice(0, 10);
+
+  const maxNumberOfVotes = sortedSuggestions[0]?.[1] ?? 0;
+
+  const suggestionMessage =
+    Object.entries(suggestions).length > 10
+      ? "Top 10 suggestions from audience:"
+      : "Suggestions from the audience:";
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <Stack
+      direction="row"
+      style={{
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 80,
+      }}
+    >
       {initialFen && (
-        <ChessboardWithRules initialFen={initialFen} onMove={sendMessage} />
+        <ChessboardWithRules
+          initialFen={initialFen}
+          onMove={(newFen: string) => {
+            sendMessage(newFen);
+            onGetSuggestions();
+          }}
+        />
       )}
-      <button onClick={onNewGame}>Start new game</button>
-      <button onClick={onGetSuggestions}>Get suggestions</button>
-      <div>
-        {Object.entries(suggestions).map(([move, value]) => (
-          <div key={move}>
-            {move} - {value}
-          </div>
+      <Stack
+        direction="column"
+        sx={{
+          justifyContent: "start",
+          alignItems: "start",
+          minHeight: "70%",
+          width: "50%",
+          gap: 1,
+          marginRight: "-200px",
+        }}
+      >
+        <Typography variant="h4">{suggestionMessage}</Typography>
+        {sortedSuggestions.map(([move, value]) => (
+          <Suggestion
+            suggestion={move}
+            numberOfVotes={value}
+            maxNumberOfVotes={maxNumberOfVotes}
+          />
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 

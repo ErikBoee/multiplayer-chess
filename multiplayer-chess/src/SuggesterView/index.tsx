@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import ChessboardForSuggester from "../ChessBoardForSuggester";
 import { getGame } from "../services";
+import { Stack } from "@mui/material";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
@@ -28,9 +29,16 @@ function SuggesterView() {
   }, [lastMessage]);
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <Stack
+      style={{
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       {initialFen && <ChessboardForSuggester initialFen={initialFen} />}
-    </div>
+    </Stack>
   );
 }
 
