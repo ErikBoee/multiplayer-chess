@@ -4,13 +4,14 @@ import useWebSocket from "react-use-websocket";
 import ChessboardWithRules from "../ChessBoardWithRules";
 import { getGame, getSuggestions } from "../services";
 import Suggestion from "./Suggestion";
+import ColoredCircle from "./ColoredCircle";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
 function MasterView() {
   const [initialFen, setInitialFen] = useState<string | null>(null);
 
-  const { sendMessage } = useWebSocket(socketUrl);
+  const { sendMessage, readyState } = useWebSocket(socketUrl);
   const [suggestions, setSuggestions] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -81,7 +82,14 @@ function MasterView() {
           marginRight: "-200px",
         }}
       >
-        <Typography variant="h4">{suggestionMessage}</Typography>
+        <Stack direction={"row"} gap={1} alignItems={"center"}>
+          {readyState === 1 ? (
+            <ColoredCircle color="green" />
+          ) : (
+            <ColoredCircle color="red" />
+          )}
+          <Typography variant="h4">{suggestionMessage}</Typography>
+        </Stack>
         {sortedSuggestions.map(([move, value]) => (
           <Suggestion
             suggestion={move}
