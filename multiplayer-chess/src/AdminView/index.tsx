@@ -1,6 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import { startNewGame } from "../services";
-import { Login } from "@mui/icons-material";
+import { Login } from "../Login";
 
 function AdminView() {
   const token = localStorage.getItem("token");
