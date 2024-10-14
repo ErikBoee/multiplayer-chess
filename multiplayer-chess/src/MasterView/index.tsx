@@ -5,6 +5,7 @@ import ChessboardWithRules from "../ChessBoardWithRules";
 import { getGame, getSuggestions } from "../services";
 import Suggestion from "./Suggestion";
 import ColoredCircle from "./ColoredCircle";
+import { Login } from "../Login";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
@@ -13,6 +14,12 @@ function MasterView() {
 
   const { sendMessage, readyState } = useWebSocket(socketUrl);
   const [suggestions, setSuggestions] = useState<Record<string, number>>({});
+
+  const token = localStorage.getItem("token");
+  console.log(token);
+  if (!token) {
+    return <Login />;
+  }
 
   useEffect(() => {
     getGame()

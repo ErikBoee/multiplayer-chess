@@ -1,7 +1,13 @@
 import { Button, Stack } from "@mui/material";
 import { startNewGame } from "../services";
+import { Login } from "@mui/icons-material";
 
 function AdminView() {
+  const token = localStorage.getItem("token");
+  console.log(token);
+  if (!token) {
+    return <Login />;
+  }
   return (
     <Stack
       direction="row"

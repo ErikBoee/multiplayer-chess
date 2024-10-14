@@ -1,5 +1,4 @@
 const url = `${import.meta.env.VITE_API_URL}`;
-console.log(url);
 
 async function makeSuggestion(move: string): Promise<void> {
   return fetch(`${url}add-suggestion/`, {
@@ -23,6 +22,7 @@ async function makeMove(move: string, newFen: string): Promise<void> {
     method: "post",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify({
       move,
@@ -41,6 +41,7 @@ async function startNewGame(): Promise<void> {
     method: "post",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `JWT ${localStorage.getItem("token")}`,
     },
   }).then((response) => {
     if (!response.ok) {

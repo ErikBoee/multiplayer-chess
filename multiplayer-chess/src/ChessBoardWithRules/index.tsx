@@ -55,7 +55,7 @@ function ChessboardWithRules({ initialFen, onMove }: ChessboardWithRulesProps) {
     >
       <Typography variant="h5">{"GM Jon Ludvig Hammer"}</Typography>
       <Chessboard id="BasicBoard" position={game.fen()} onPieceDrop={onDrop} />
-      <Typography variant="h5">{"Sustainable Procurement Summit"}</Typography>
+      <Typography variant="h5">{"Viewers of gmjlh"}</Typography>
     </Stack>
   );
 }
