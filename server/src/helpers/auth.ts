@@ -17,8 +17,8 @@ export async function authenticateRequest(
 ) {
   const { success, errorMesssage } = await isAuthenticated(req);
   if (!success) {
-    console.log(errorMesssage);
-    //return res.status(401).send({ error: errorMesssage });
+    res.status(401).send({ error: errorMesssage });
+    return;
   } else {
     console.log("Authenticated");
   }
