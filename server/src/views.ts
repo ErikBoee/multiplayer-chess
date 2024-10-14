@@ -1,6 +1,7 @@
 import { TypedRequestBody, TypedResponse } from "./helpers/http";
 import { prisma } from "./db/prismaClient";
 import { Response } from "express";
+import jwt from "jsonwebtoken";
 
 const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -177,4 +178,29 @@ export async function addSuggestion(
     });
   }
   res.send();
+}
+
+export async function login(
+  req: TypedRequestBody<{ email: string; password: string }>,
+  res: TypedResponse<{ token: string }>
+) {
+  const user = await prisma.user.findFirst({
+    where: {
+      email: req.body.email,
+      password: req.body.password,
+    },
+  });
+  if (!user) {
+    res.status(401).send("Invalid username or password");
+    return;
+  }
+  const secret = process.env.JWT_SECRET_KEY;
+  if (!secret) {
+    console.log("JWT secret not set");
+    res.status(500).send("Internal server error");
+    return;
+  }
+  const token = jwt.sign({ id: user.id }, secret);
+  res.status(200).json({ token });
+  return;
 }

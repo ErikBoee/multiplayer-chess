@@ -9,6 +9,7 @@ import {
   addSuggestion,
   getGame,
   getSuggestions,
+  login,
   makeMove,
   newGame,
 } from "./views";
@@ -30,6 +31,7 @@ wsApp.get("/get-current-game/", jsonParser, getGame);
 wsApp.post("/new-game/", jsonParser, newGame);
 wsApp.post("/add-suggestion/", jsonParser, addSuggestion);
 wsApp.post("/make-move/", jsonParser, makeMove);
+wsApp.post("/login/", jsonParser, login);
 
 var aWss = wsInstance.getWss();
 
