@@ -194,7 +194,7 @@ export async function login(
     res.status(401).send("Invalid username or password");
     return;
   }
-  const secret = process.env.JWT_SECRET_KEY;
+  const secret = process.env.JWT_SECRET;
   if (!secret) {
     console.log("JWT secret not set");
     res.status(500).send("Internal server error");
