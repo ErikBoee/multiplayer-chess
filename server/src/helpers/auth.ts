@@ -19,6 +19,8 @@ export async function authenticateRequest(
   if (!success) {
     console.log(errorMesssage);
     //return res.status(401).send({ error: errorMesssage });
+  } else {
+    console.log("Authenticated");
   }
   next();
 }
