@@ -3,7 +3,7 @@ import express, { Express } from "express";
 import expressWs from "express-ws";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import { prisma } from "./db/prismaClient";
+import { authenticateRequest } from "./helpers/auth";
 import cors from "cors";
 import {
   addSuggestion,
@@ -28,9 +28,9 @@ wsApp.use(cors());
 
 wsApp.get("/get-suggestions/", jsonParser, getSuggestions);
 wsApp.get("/get-current-game/", jsonParser, getGame);
-wsApp.post("/new-game/", jsonParser, newGame);
+wsApp.post("/new-game/", authenticateRequest, jsonParser, newGame);
 wsApp.post("/add-suggestion/", jsonParser, addSuggestion);
-wsApp.post("/make-move/", jsonParser, makeMove);
+wsApp.post("/make-move/", authenticateRequest, jsonParser, makeMove);
 wsApp.post("/login/", jsonParser, login);
 
 var aWss = wsInstance.getWss();
