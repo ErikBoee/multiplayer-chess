@@ -38,6 +38,9 @@ export async function getGamePgn(
     where: {
       gameId: newestGame.id,
     },
+    orderBy: {
+      index: "asc",
+    },
   });
   const pgn = moves
     .map((move) => {
