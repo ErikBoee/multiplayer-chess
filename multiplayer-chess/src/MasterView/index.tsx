@@ -6,6 +6,7 @@ import { getGame, getSuggestions } from "../services";
 import Suggestion from "./Suggestion";
 import ColoredCircle from "./ColoredCircle";
 import { Login } from "../Login";
+import CountdownTimer from "../Countdown";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
@@ -45,7 +46,7 @@ function MasterView() {
     const interval = setInterval(() => {
       onGetSuggestions();
       console.log("polling suggestions");
-    }, 1500);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
@@ -106,6 +107,9 @@ function MasterView() {
             maxNumberOfVotes={maxNumberOfVotes}
           />
         ))}
+      </Stack>
+      <Stack direction="column" gap={1}>
+        <CountdownTimer />
       </Stack>
     </Stack>
   );

@@ -26,13 +26,13 @@ function Suggestion({
   numberOfVotes,
   maxNumberOfVotes,
 }: SuggestionProps) {
-  const barWidth = (numberOfVotes / maxNumberOfVotes) * 200;
+  const barWidth = (numberOfVotes / maxNumberOfVotes) * 300;
   const { image, move } = moveToImageAndMove(suggestion);
   return (
     <Stack direction="row" alignItems={"center"} gap={2}>
       <Stack
         direction="row"
-        width={"120px"}
+        width={"130px"}
         alignItems={"center"}
         justifyContent={"start"}
       >

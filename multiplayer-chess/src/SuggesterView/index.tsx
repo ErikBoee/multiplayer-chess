@@ -12,6 +12,7 @@ function SuggesterView() {
   const fetchAndSetInitialFen = async () => {
     try {
       const game = await getGame();
+      if (game.fen === initialFen) return;
       setInitialFen(game.fen);
     } catch (error) {
       console.error("Error getting game", error);
@@ -24,6 +25,12 @@ function SuggesterView() {
 
   useEffect(() => {
     fetchAndSetInitialFen();
+
+    const interval = setInterval(() => {
+      fetchAndSetInitialFen();
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
