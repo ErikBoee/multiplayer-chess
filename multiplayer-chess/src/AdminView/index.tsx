@@ -24,12 +24,13 @@ function AdminView() {
 
   return (
     <Stack
-      direction="row"
+      direction="column"
       style={{
         width: "100%",
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
+        gap: 1,
       }}
     >
       <Button onClick={startNewGame} variant="contained">
