@@ -12,7 +12,9 @@ const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 function MasterView() {
   const [initialFen, setInitialFen] = useState<string | null>(null);
 
-  const { sendMessage, readyState } = useWebSocket(socketUrl);
+  const { sendMessage, readyState } = useWebSocket(socketUrl, {
+    shouldReconnect: (_closeEvent) => true,
+  });
   const [suggestions, setSuggestions] = useState<Record<string, number>>({});
 
   const token = localStorage.getItem("token");

@@ -2,23 +2,31 @@ import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import ChessboardForSuggester from "../ChessBoardForSuggester";
 import { getGame } from "../services";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
 function SuggesterView() {
   const [initialFen, setInitialFen] = useState<string | null>(null);
 
-  const { lastMessage } = useWebSocket(socketUrl);
+  const fetchAndSetInitialFen = async () => {
+    try {
+      const game = await getGame();
+      setInitialFen(game.fen);
+    } catch (error) {
+      console.error("Error getting game", error);
+    }
+  };
+
+  const { lastMessage, readyState } = useWebSocket(socketUrl, {
+    shouldReconnect: (_closeEvent) => true,
+    onClose: () => {
+      fetchAndSetInitialFen();
+    },
+  });
 
   useEffect(() => {
-    getGame()
-      .then((game) => {
-        setInitialFen(game.fen);
-      })
-      .catch((error) => {
-        console.error("Error getting game", error);
-      });
+    fetchAndSetInitialFen();
   }, []);
 
   useEffect(() => {
@@ -37,6 +45,7 @@ function SuggesterView() {
         justifyContent: "center",
       }}
     >
+      <Typography variant="h4">{readyState}</Typography>
       {initialFen && <ChessboardForSuggester initialFen={initialFen} />}
     </Stack>
   );
