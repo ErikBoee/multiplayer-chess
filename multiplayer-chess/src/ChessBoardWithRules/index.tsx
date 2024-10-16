@@ -53,9 +53,15 @@ function ChessboardWithRules({ initialFen, onMove }: ChessboardWithRulesProps) {
         gap: 1,
       }}
     >
+      {game.isCheckmate() && (
+        <Typography variant="h4">
+          {game.turn() === "w" ? "Jon Ludvig won!" : "The summit won!!!"}
+        </Typography>
+      )}
+      {game.isDraw() && <Typography variant="h4">{"It's a draw!"}</Typography>}
       <Typography variant="h5">{"GM Jon Ludvig Hammer"}</Typography>
       <Chessboard id="BasicBoard" position={game.fen()} onPieceDrop={onDrop} />
-      <Typography variant="h5">{"Viewers of gmjlh"}</Typography>
+      <Typography variant="h5">{"Sustainable Procurement Summit"}</Typography>
     </Stack>
   );
 }

@@ -20,9 +20,6 @@ function SuggesterView() {
 
   const { lastMessage, readyState } = useWebSocket(socketUrl, {
     shouldReconnect: (_closeEvent) => true,
-    onClose: () => {
-      fetchAndSetInitialFen();
-    },
   });
 
   useEffect(() => {
@@ -45,7 +42,6 @@ function SuggesterView() {
         justifyContent: "center",
       }}
     >
-      <Typography variant="h4">{readyState}</Typography>
       {initialFen && <ChessboardForSuggester initialFen={initialFen} />}
     </Stack>
   );

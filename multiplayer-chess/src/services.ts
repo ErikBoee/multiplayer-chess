@@ -9,12 +9,7 @@ async function makeSuggestion(move: string): Promise<void> {
     body: JSON.stringify({
       move,
     }),
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("ERROR!");
-    }
-    return response.json();
-  });
+  }).then((_response) => {});
 }
 
 async function makeMove(move: string, newFen: string): Promise<void> {
@@ -28,12 +23,7 @@ async function makeMove(move: string, newFen: string): Promise<void> {
       move,
       newFen,
     }),
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("ERROR!");
-    }
-    return response.json();
-  });
+  }).then((_response) => {});
 }
 
 async function startNewGame(): Promise<void> {

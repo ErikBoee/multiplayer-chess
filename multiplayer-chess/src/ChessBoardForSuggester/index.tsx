@@ -15,7 +15,6 @@ type ChessboardForSuggesterProps = {
 function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
   const [suggestedFen, setSuggestedFen] = useState<string | null>(null);
   const [game, setGame] = useState(new Chess(initialFen));
-  console.log(initialFen);
   const [isWhitesTurn, setIsWhitesTurn] = useState(
     initialFen.split(" ")[1] === "w"
   );
@@ -70,27 +69,34 @@ function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
           gap: 1,
         }}
       >
-        <Stack
-          direction="column"
-          sx={{
-            ...style,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {!hasMadeSuggestion && (
+        {!game.isCheckmate() && (
+          <Stack
+            direction="column"
+            sx={{
+              ...style,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {!hasMadeSuggestion && (
+              <Typography variant="h4" align="center">
+                {isWhitesTurn ? "White to move" : "Black to move"}
+              </Typography>
+            )}
             <Typography variant="h4" align="center">
-              {isWhitesTurn ? "White to move" : "Black to move"}
+              {suggestedFen
+                ? "Your suggestion has been registered"
+                : isWhitesTurn
+                ? "Suggest a move"
+                : "Jon Ludvig's turn"}
             </Typography>
-          )}
-          <Typography variant="h4" align="center">
-            {suggestedFen
-              ? "Your suggestion has been registered"
-              : isWhitesTurn
-              ? "Suggest a move"
-              : "Opponent's turn"}
+          </Stack>
+        )}
+        {game.isCheckmate() && (
+          <Typography variant="h4">
+            {game.turn() === "w" ? "Jon Ludvig won!" : "The summit won!!!"}
           </Typography>
-        </Stack>
+        )}
         <Stack sx={{ ...style, justifyContent: "center" }}>
           <Chessboard
             id="BasicBoard"
@@ -114,27 +120,34 @@ function ChessboardForSuggester({ initialFen }: ChessboardForSuggesterProps) {
         gap: 3,
       }}
     >
-      <Stack
-        direction="column"
-        sx={{
-          ...style,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {!hasMadeSuggestion && (
+      {!game.isCheckmate() && (
+        <Stack
+          direction="column"
+          sx={{
+            ...style,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {!hasMadeSuggestion && (
+            <Typography variant="h4" align="center">
+              {isWhitesTurn ? "White to move" : "Black to move"}
+            </Typography>
+          )}
           <Typography variant="h4" align="center">
-            {isWhitesTurn ? "White to move" : "Black to move"}
+            {suggestedFen
+              ? "Your suggestion has been registered"
+              : isWhitesTurn
+              ? "Suggest a move"
+              : "Jon Ludvig's turn"}
           </Typography>
-        )}
-        <Typography variant="h4" align="center">
-          {suggestedFen
-            ? "Your suggestion has been registered"
-            : isWhitesTurn
-            ? "Suggest a move"
-            : "Jon Ludvig's turn"}
+        </Stack>
+      )}
+      {game.isCheckmate() && (
+        <Typography variant="h4">
+          {game.turn() === "w" ? "Jon Ludvig won!" : "The summit won!!!"}
         </Typography>
-      </Stack>
+      )}
       <Stack sx={{ ...style, justifyContent: "center" }}>
         <Chessboard
           id="BasicBoard"
