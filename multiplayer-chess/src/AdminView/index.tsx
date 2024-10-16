@@ -30,7 +30,7 @@ function AdminView() {
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
-        gap: 1,
+        gap: 5,
       }}
     >
       <Button onClick={startNewGame} variant="contained">
