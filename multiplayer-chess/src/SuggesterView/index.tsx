@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import ChessboardForSuggester from "../ChessBoardForSuggester";
 import { getGame } from "../services";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 
 const socketUrl = "wss://multiplayer-chess-28726487310.europe-north1.run.app/";
 
@@ -18,7 +18,7 @@ function SuggesterView() {
     }
   };
 
-  const { lastMessage, readyState } = useWebSocket(socketUrl, {
+  const { lastMessage } = useWebSocket(socketUrl, {
     shouldReconnect: (_closeEvent) => true,
   });
 
