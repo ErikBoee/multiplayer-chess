@@ -21,6 +21,35 @@ export async function getGame(
   res.json({ fen: newestGame.fen });
 }
 
+export async function getGamePgn(
+  _req: TypedRequestBody<{}>,
+  res: TypedResponse<{ pgn: string }>
+) {
+  const newestGame = await prisma.game.findFirst({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  if (!newestGame) {
+    res.status(404).send("No game found");
+    return;
+  }
+  const moves = await prisma.move.findMany({
+    where: {
+      gameId: newestGame.id,
+    },
+  });
+  const pgn = moves
+    .map((move) => {
+      if (move.index % 2 === 0) {
+        return `${Math.floor(move.index / 2) + 1}. ${move.moveDescription}`;
+      }
+      return move.moveDescription;
+    })
+    .join(" ");
+  res.json({ pgn });
+}
+
 export async function getSuggestions(
   _req: TypedRequestBody<{}>,
   res: TypedResponse<{

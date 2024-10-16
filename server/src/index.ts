@@ -8,6 +8,7 @@ import cors from "cors";
 import {
   addSuggestion,
   getGame,
+  getGamePgn,
   getSuggestions,
   login,
   makeMove,
@@ -27,7 +28,8 @@ const jsonParser = bodyParser.json();
 wsApp.use(cors());
 
 wsApp.get("/get-suggestions/", jsonParser, getSuggestions);
-wsApp.get("/get-current-game/", jsonParser, getGame);
+wsApp.get("/get-current-game/", getGame);
+wsApp.get("/get-current-game-pgn/", getGamePgn);
 wsApp.post("/new-game/", authenticateRequest, jsonParser, newGame);
 wsApp.post("/add-suggestion/", jsonParser, addSuggestion);
 wsApp.post("/make-move/", authenticateRequest, jsonParser, makeMove);
