@@ -41,6 +41,15 @@ async function startNewGame(): Promise<void> {
   });
 }
 
+async function getGamePgn(): Promise<{ pgn: string }> {
+  return fetch(`${url}get-current-game-pgn/`).then((response) => {
+    if (!response.ok) {
+      throw new Error("ERROR!");
+    }
+    return response.json();
+  });
+}
+
 interface SuggestionsResponse {
   suggestions: Record<string, number>;
 }
@@ -67,4 +76,11 @@ async function getGame(): Promise<GameResponse> {
   });
 }
 
-export { makeSuggestion, makeMove, startNewGame, getSuggestions, getGame };
+export {
+  makeSuggestion,
+  makeMove,
+  startNewGame,
+  getSuggestions,
+  getGame,
+  getGamePgn,
+};
