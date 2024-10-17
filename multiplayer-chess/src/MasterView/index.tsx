@@ -142,7 +142,7 @@ function MasterView() {
       </Stack>
       <Stack direction="row" gap={1} marginBottom={5} alignItems="center">
         <Typography variant="h4" color="blue">
-          https://multiplayer-chess-one.vercel.app/suggester
+          https://sjakkevents.no/suggester
         </Typography>
       </Stack>
     </Stack>
