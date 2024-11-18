@@ -6,6 +6,7 @@ import { Stack } from "@mui/material";
 import AdminView from "./AdminView";
 
 function App() {
+  console.log("yay")
   return (
     <Stack
       direction={"column"}
