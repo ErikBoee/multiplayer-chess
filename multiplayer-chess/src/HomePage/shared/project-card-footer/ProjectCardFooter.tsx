@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { Button, Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
 
-import { ArrowRightIcon, GitHubIcon, LinkIcon } from "../../utils/Icons";
+import { ArrowRightIcon, LinkIcon } from "../../utils/Icons";
 import { open } from "../../utils/Functions";
 
 interface GitHubButtonProps {

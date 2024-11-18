@@ -1,10 +1,10 @@
 import { FC } from "react";
 
 import { Box, Flex, Heading, Image } from "@chakra-ui/react";
-import { configs, Content } from "../../shared/content/Content";
+import { Content } from "../../shared/content/Content";
 
-import Maud from "./maud.png";
 import JL from "./jonludvig.png";
+import Maud from "./maud.png";
 
 export const About: FC = () => {
   return (

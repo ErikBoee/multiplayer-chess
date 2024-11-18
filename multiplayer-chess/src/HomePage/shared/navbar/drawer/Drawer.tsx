@@ -20,7 +20,6 @@ import {
 import { AboutPageId, WorkPageId, TilbudId } from "../../../utils/useScroll";
 import { MenuIcon } from "../../../utils/Icons";
 import { Socials } from "../../socials/Socials";
-import { onResumeOpen } from "../../../utils/Functions";
 
 interface Props extends StyleProps {
   onSectionClick: (section: string) => void;

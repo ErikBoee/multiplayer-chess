@@ -2,8 +2,7 @@ import { FC } from "react";
 
 import { Button, HStack, IconButton, Tooltip } from "@chakra-ui/react";
 
-import { configs } from "../content/Content";
-import { onResumeOpen, open } from "../../utils/Functions";
+import { open } from "../../utils/Functions";
 import {
   FacebookIcon,
   GitHubIcon,
@@ -12,6 +11,7 @@ import {
   MailIcon,
   YoutubeIcon,
 } from "../../utils/Icons";
+import { configs } from "../content/Content";
 
 const LinksToIconMapper: Record<string, JSX.Element> = {
   linkedin: <LinkedInIcon />,
@@ -28,7 +28,7 @@ interface Props {
   delay?: number;
 }
 
-export const Socials: FC<Props> = ({ resume = true, exclude, delay = 800 }) => {
+export const Socials: FC<Props> = ({ exclude, delay = 800 }) => {
   return (
     <HStack spacing="5">
       {configs.common.socials.map(

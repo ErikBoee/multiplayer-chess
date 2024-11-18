@@ -1,13 +1,13 @@
 import { FC } from "react";
 
 import {
-    Box,
-    Center,
-    Container,
-    Heading,
-    HStack,
-    Image,
-    Stack
+  Box,
+  Center,
+  Container,
+  Heading,
+  HStack,
+  Image,
+  Stack,
 } from "@chakra-ui/react";
 
 import { Content } from "../../shared/content/Content";
@@ -23,14 +23,6 @@ import tekna from "./tekna.svg";
 import vkd from "./vkd.png";
 
 export const Landing: FC = () => {
-  const scrollIntoView = () => {
-    const featuredHeader = document.getElementById(WorkPageId);
-
-    if (featuredHeader) {
-      featuredHeader.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <Box id="page-landing">
       <Center pb={{ base: 16, md: 12 }}>
