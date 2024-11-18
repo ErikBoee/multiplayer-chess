@@ -1,15 +1,11 @@
 import { FC } from "react";
 
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { ProjectCardFooter } from "../../../shared/project-card-footer/ProjectCardFooter";
 
 interface Props {
   id: string;
   title: string;
-  demo?: string;
-  github?: string;
   description: string;
-  readMore?: string;
   image: string;
   jpg: string;
 }
@@ -17,10 +13,7 @@ interface Props {
 export const OtherProjectCard: FC<Props> = ({
   id,
   title,
-  demo,
-  github,
   description,
-  readMore,
 }) => {
   return (
     <Flex
@@ -38,7 +31,6 @@ export const OtherProjectCard: FC<Props> = ({
             {id}
           </Text>
           <Text py="2">"{description}"</Text>
-          <ProjectCardFooter readMore={readMore} github={github} demo={demo} />
         </Box>
       </Flex>
     </Flex>

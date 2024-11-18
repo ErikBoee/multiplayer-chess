@@ -9,7 +9,6 @@ export const OtherProjects: FC = () => {
     title: "Alexander Høiland Thoresen",
     year: "Leder for forretningsutvikling og marked, Simonsen Vogt Wiig",
     location: "",
-    demo: "",
     github: "",
     tags: [""],
     description:
@@ -23,7 +22,6 @@ export const OtherProjects: FC = () => {
     title: "Leik Isdal",
     year: "",
     location: "",
-    demo: "",
     github: "",
     tags: [""],
     description:
@@ -37,7 +35,6 @@ export const OtherProjects: FC = () => {
     title: "Tanja Olander",
     year: "",
     location: "",
-    demo: "",
     github:
       "https://www.lierposten.no/har-ikke-opplevd-maken-storste-kick-offet-noen-gang/s/5-65-249777",
     tags: [""],
@@ -52,7 +49,6 @@ export const OtherProjects: FC = () => {
     title: "Thorbjørn Helin",
     year: "",
     location: "",
-    demo: "",
     github: "",
     tags: [""],
     description:

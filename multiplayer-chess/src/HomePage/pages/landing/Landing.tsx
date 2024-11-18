@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 import { Content } from "../../shared/content/Content";
-import { WorkPageId } from "../../utils/useScroll";
 import braathe from "./braathe.svg";
 import deloitte from "./deloitte.png";
 import ignite from "./ignite.svg";
