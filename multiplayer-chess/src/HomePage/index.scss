@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap");
+
+@font-face {
+  font-family: "Signature";
+  src: local("Signature"),
+    url(./logo-type/Monsieur-Pomme.ttf) format("truetype");
+  font-display: fallback;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  cursor: auto !important;
+
+  *::selection {
+    background: var(--hp-colors-orange-200);
+    transition: all 0.25s ease-in-out !important;
+  }
+}
+
+.autograph__path {
+  opacity: 0;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+
+  .animated & {
+    opacity: 1;
+    animation-name: line;
+  }
+}
+
+@keyframes line {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

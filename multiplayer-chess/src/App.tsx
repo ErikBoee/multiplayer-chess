@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import MasterView from "./MasterView";
 import SuggesterView from "./SuggesterView";
+import HomePage from "./HomePage";
 import { Stack } from "@mui/material";
 import AdminView from "./AdminView";
 
@@ -17,6 +18,7 @@ function App() {
     >
       <Router>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/suggester" element={<SuggesterView />} />
           <Route path="/master" element={<MasterView />} />
           <Route path="/admin" element={<AdminView />} />

@@ -1,0 +1,25 @@
+{
+    "name": "Sjakkevents",
+    "logoType": {
+        "mobile": "♚♛",
+        "desktop": "♚ HELT KONGE ♛"
+    },
+    "mainPicture1": "/assets/maud.png",
+    "mainPicture2": "/assets/jonludvig.png",
+    "pronunciation": "/maud/",
+    "audioFile": "/assets/name-pro.mp3",
+    "cssVarPrefix": "hp",
+    "email": "maudrodsmoen@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/maud-rodsmoen/",
+    "resume": "https://docs.google.com/viewer?url=https://docs.google.com/document/d/1s3G7PiPHlK3Ett_W-WUU01GQnsggiLrWZB3IiMAgBEk/export?format=pdf",
+    "socials": [
+        {
+            "type": "linkedin",
+            "link": "https://www.linkedin.com/in/maud-rodsmoen"
+        },
+        {
+            "type": "mail",
+            "link": "mailto:maudrodsmoen@gmail.com"
+        }
+    ]
+}
