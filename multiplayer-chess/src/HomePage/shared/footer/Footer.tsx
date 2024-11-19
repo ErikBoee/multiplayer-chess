@@ -19,7 +19,7 @@ export const Footer: FC = () => {
       <PageHeader label="Kontakt oss" />
       <Flex pb="2" gap="7" overflow="hidden" alignItems="center">
         <Heading {...headerStyles} fontSize="2xl">
-          jlh@live.com
+          jl.hammer@live.com
         </Heading>
         <Heading {...headerStyles} fontSize="2xl">
           maudrodsmoen@gmail.com
