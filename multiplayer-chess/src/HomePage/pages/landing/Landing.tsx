@@ -81,7 +81,7 @@ export const Landing: FC = () => {
                   arrangement.
                 </Content>
                 <Content data-aos-delay="500" fontSize="lg">
-                  Kontakt oss på mail, maudrodsmoen@gmail.com og jlh@live.com.
+                  Kontakt oss på mail, maudrodsmoen@gmail.com og jl.hammer@live.com.
                 </Content>
               </Stack>
             </Stack>
